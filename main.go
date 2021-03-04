@@ -3,7 +3,6 @@ package main
 import (
 	"github.com/al-abbas-nz/golang-react/database"
 	"github.com/al-abbas-nz/golang-react/routes"
-
 	"github.com/gofiber/fiber/v2"
 )
 
