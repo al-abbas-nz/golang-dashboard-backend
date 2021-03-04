@@ -5,6 +5,7 @@ go 1.16
 require (
 	github.com/cortesi/modd v0.0.0-20210222043654-cbdcc23af7d5 // indirect
 	github.com/cosmtrek/air v1.21.2 // indirect
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/gofiber/fiber/v2 v2.5.0
 	github.com/imdario/mergo v0.3.11 // indirect
 	github.com/klauspost/compress v1.11.9 // indirect
