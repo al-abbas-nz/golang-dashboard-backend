@@ -140,7 +140,6 @@ func UpdateInfo(c *fiber.Ctx) error {
 }
 
 func UpdatePassword(c *fiber.Ctx) error {
-
 	var data map[string]string
 
 	if err := c.BodyParser(&data); err != nil {

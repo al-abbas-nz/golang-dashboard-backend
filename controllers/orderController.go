@@ -6,17 +6,26 @@ import (
 	"strconv"
 
 	"github.com/al-abbas-nz/golang-react/database"
+	"github.com/al-abbas-nz/golang-react/middleware"
 	"github.com/al-abbas-nz/golang-react/models"
 	"github.com/gofiber/fiber/v2"
 )
 
 func AllOrders(c *fiber.Ctx) error {
+	if err := middleware.IsAuthorized(c, "orders"); err != nil {
+		return err
+	}
+
 	page, _ := strconv.Atoi(c.Query("page", "1"))
 
 	return c.JSON(models.Paginate(database.DB, &models.Order{}, page))
 }
 
 func Export(c *fiber.Ctx) error {
+	if err := middleware.IsAuthorized(c, "orders"); err != nil {
+		return err
+	}
+
 	filePath := "./csv/orders.csv"
 
 	if err := CreateFile(filePath); err != nil {
@@ -83,7 +92,9 @@ type Sales struct {
 }
 
 func Chart(c *fiber.Ctx) error {
-
+	if err := middleware.IsAuthorized(c, "orders"); err != nil {
+		return err
+	}
 	var sales []Sales
 
 	database.DB.Raw(`

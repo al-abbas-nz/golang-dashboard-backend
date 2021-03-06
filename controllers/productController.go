@@ -4,6 +4,7 @@ import (
 	"strconv"
 
 	"github.com/al-abbas-nz/golang-react/database"
+	"github.com/al-abbas-nz/golang-react/middleware"
 	"github.com/al-abbas-nz/golang-react/models"
 	"github.com/gofiber/fiber/v2"
 )
@@ -12,6 +13,9 @@ import (
 
 // get all products (objects in an array)
 func AllProducts(c *fiber.Ctx) error {
+	if err := middleware.IsAuthorized(c, "products"); err != nil {
+		return err
+	}
 
 	// add pagination
 	page, _ := strconv.Atoi(c.Query("page", "1"))
@@ -21,6 +25,10 @@ func AllProducts(c *fiber.Ctx) error {
 
 // create product
 func CreateProduct(c *fiber.Ctx) error {
+	if err := middleware.IsAuthorized(c, "products"); err != nil {
+		return err
+	}
+
 	var product models.Product
 	if err := c.BodyParser(&product); err != nil {
 		return err
@@ -33,6 +41,10 @@ func CreateProduct(c *fiber.Ctx) error {
 
 // get a product
 func GetProduct(c *fiber.Ctx) error {
+	if err := middleware.IsAuthorized(c, "products"); err != nil {
+		return err
+	}
+
 	id, _ := strconv.Atoi(c.Params("id"))
 
 	product := models.Product{
@@ -46,6 +58,10 @@ func GetProduct(c *fiber.Ctx) error {
 
 // update product
 func UpdateProduct(c *fiber.Ctx) error {
+	if err := middleware.IsAuthorized(c, "products"); err != nil {
+		return err
+	}
+
 	id, _ := strconv.Atoi(c.Params("id"))
 
 	product := models.Product{
@@ -62,6 +78,10 @@ func UpdateProduct(c *fiber.Ctx) error {
 }
 
 func DeleteProduct(c *fiber.Ctx) error {
+	if err := middleware.IsAuthorized(c, "products"); err != nil {
+		return err
+	}
+
 	id, _ := strconv.Atoi(c.Params("id"))
 
 	product := models.Product{

@@ -4,6 +4,7 @@ import (
 	"strconv"
 
 	"github.com/al-abbas-nz/golang-react/database"
+	"github.com/al-abbas-nz/golang-react/middleware"
 	"github.com/al-abbas-nz/golang-react/models"
 	"github.com/gofiber/fiber/v2"
 )
@@ -12,6 +13,10 @@ import (
 
 // get all roles (objects in an array)
 func AllRoles(c *fiber.Ctx) error {
+	if err := middleware.IsAuthorized(c, "roles"); err != nil {
+		return err
+	}
+
 	var roles []models.Role
 
 	database.DB.Find(&roles)
@@ -22,6 +27,10 @@ func AllRoles(c *fiber.Ctx) error {
 // DTO Data Transfer Object - represents the request that will send the data
 
 func CreateRole(c *fiber.Ctx) error {
+	if err := middleware.IsAuthorized(c, "roles"); err != nil {
+		return err
+	}
+
 	var roleDto fiber.Map
 	if err := c.BodyParser(&roleDto); err != nil {
 		return err
@@ -32,7 +41,7 @@ func CreateRole(c *fiber.Ctx) error {
 
 	for i, permissionId := range list {
 		id, _ := strconv.Atoi(permissionId.(string))
-		
+
 		permissions[i] = models.Permission{
 			Id: uint(id),
 		}
@@ -49,6 +58,10 @@ func CreateRole(c *fiber.Ctx) error {
 }
 
 func GetRole(c *fiber.Ctx) error {
+	if err := middleware.IsAuthorized(c, "roles"); err != nil {
+		return err
+	}
+
 	id, _ := strconv.Atoi(c.Params("id"))
 
 	role := models.Role{
@@ -61,6 +74,10 @@ func GetRole(c *fiber.Ctx) error {
 }
 
 func UpdateRole(c *fiber.Ctx) error {
+	if err := middleware.IsAuthorized(c, "roles"); err != nil {
+		return err
+	}
+
 	id, _ := strconv.Atoi(c.Params("id"))
 
 	var roleDto fiber.Map
@@ -95,6 +112,10 @@ func UpdateRole(c *fiber.Ctx) error {
 }
 
 func DeleteRole(c *fiber.Ctx) error {
+	if err := middleware.IsAuthorized(c, "roles"); err != nil {
+		return err
+	}
+
 	id, _ := strconv.Atoi(c.Params("id"))
 
 	role := models.Role{
