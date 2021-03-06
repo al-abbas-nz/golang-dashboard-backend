@@ -4,6 +4,7 @@ import (
 	"strconv"
 
 	"github.com/al-abbas-nz/golang-react/database"
+	"github.com/al-abbas-nz/golang-react/middleware"
 	"github.com/al-abbas-nz/golang-react/models"
 	"github.com/gofiber/fiber/v2"
 )
@@ -12,6 +13,9 @@ import (
 
 // get all users (objects in an array)
 func AllUsers(c *fiber.Ctx) error {
+	if err := middleware.IsAuthorized(c, "users"); err != nil {
+		return err
+	}
 
 	// add pagination
 	page, _ := strconv.Atoi(c.Query("page", "1"))
@@ -21,6 +25,10 @@ func AllUsers(c *fiber.Ctx) error {
 
 // create user
 func CreateUser(c *fiber.Ctx) error {
+	if err := middleware.IsAuthorized(c, "users"); err != nil {
+		return err
+	}
+
 	var user models.User
 	if err := c.BodyParser(&user); err != nil {
 		return err
@@ -35,6 +43,10 @@ func CreateUser(c *fiber.Ctx) error {
 
 // get a user
 func GetUser(c *fiber.Ctx) error {
+	if err := middleware.IsAuthorized(c, "users"); err != nil {
+		return err
+	}
+
 	id, _ := strconv.Atoi(c.Params("id"))
 
 	user := models.User{
@@ -48,6 +60,10 @@ func GetUser(c *fiber.Ctx) error {
 
 // update user
 func UpdateUser(c *fiber.Ctx) error {
+	if err := middleware.IsAuthorized(c, "users"); err != nil {
+		return err
+	}
+
 	id, _ := strconv.Atoi(c.Params("id"))
 
 	user := models.User{
@@ -64,6 +80,10 @@ func UpdateUser(c *fiber.Ctx) error {
 }
 
 func DeleteUser(c *fiber.Ctx) error {
+	if err := middleware.IsAuthorized(c, "users"); err != nil {
+		return err
+	}
+
 	id, _ := strconv.Atoi(c.Params("id"))
 
 	user := models.User{
