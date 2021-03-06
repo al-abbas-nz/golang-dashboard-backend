@@ -6,8 +6,6 @@
 *.dylib
 
 tmp/
-./uploads/*
-./csv/*
 # Test binary, built with `go test -c`
 *.test
 
