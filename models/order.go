@@ -3,7 +3,7 @@ package models
 import "gorm.io/gorm"
 
 type Order struct {
-	Id         uint
+	Id         uint        `json:"id"`
 	FirstName  string      `json:"-"`
 	LastName   string      `json:"-"`
 	Name       string      `json:"name" gorm:"-"` // - gorm will not add column
