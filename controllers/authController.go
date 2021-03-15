@@ -129,7 +129,7 @@ func UpdateInfo(c *fiber.Ctx) error {
 	user := models.User{
 		Id:        uint(userId),
 		FirstName: data["first_name"],
-		LastName:  data["last"],
+		LastName:  data["last_name"],
 		Email:     data["email"],
 	}
 

@@ -34,7 +34,7 @@ func CreateUser(c *fiber.Ctx) error {
 		return err
 	}
 
-	user.SetPassword("1234")
+	user.SetPassword("123")
 
 	database.DB.Create(&user)
 
